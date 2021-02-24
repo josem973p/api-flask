@@ -141,6 +141,50 @@ def get_tableMateria():
   result = materias_schema.dump(data)
   return jsonify(result)
 
+ 
+@app.route('/updateAlumno/<id>', methods=['PUT'])
+def updateAlumno(id):
+  data = alumno.query.get(id)
+
+  nombre= request.json['nombre']
+  apellido = request.json['apellido']
+  edad = request.json['edad']
+  carreraId = request.json['carreraId']
+  materiaId = request.json['materiaId']
+
+  data.nombre=nombre
+  data.apellido=apellido
+  data.edad=edad
+  data.carreraId=carreraId
+  data.materiaId=materiaId
+
+  db.session.commit()
+  
+ 
+  return jsonify({
+      "mensaje":"modificado correctamente"
+  })
+
+@app.route('/updateCarrera/<id>', methods=['PUT'])
+def updateCarrera(id):
+  data = carrera.query.get(id)
+  carr= request.json['carrera']
+  data.carrera=carr
+  db.session.commit()
+  return jsonify({
+      "mensaje":"modificado correctamente"
+  })
+
+@app.route('/updateMateria/<id>', methods=['PUT'])
+def updateMateria(id):
+  data = materia.query.get(id)
+  mat= request.json['materia']
+  data.materia=mat
+  db.session.commit()
+  return jsonify({
+      "mensaje":"modificado correctamente"
+  })
+
 '''___ manejor de errores ___ '''
 @app.errorhandler(404)
 def not_found(error):
