@@ -31,12 +31,12 @@ class alumno(db.Model):
 
 db.create_all()
 
-class alumnochema(ma.Schema):
+class alumnoSchema(ma.Schema):
     class Meta:
         fields = ('nombre', 'apellido', 'edad','carreraId','materiaId')
 
-alumno_schema = alumnochema()
-alumno_schema = alumnochema(many=True)
+alumno_schema = alumnoSchema()
+alumnos_schema = alumnoSchema(many=True)
 
 '''______________________________________________________________________________________'''
 
@@ -123,10 +123,22 @@ def createMateria():
     return materia_schema.jsonify(newMateria)
 
 
-@app.route('/table/<tabla>', methods=['GET'])
-def get_tasks(tabla):
-  data = tabla.query.all()
-  result = tasks_schema.dump(data)
+@app.route('/tableAlumno', methods=['GET'])
+def get_tableAlumnos():
+  data = alumno.query.all()
+  result = alumnos_schema.dump(data)
+  return jsonify(result)
+
+@app.route('/tableCarrera', methods=['GET'])
+def get_tableCarera():
+  data = carrera.query.all()
+  result = carreras_schema.dump(data)
+  return jsonify(result)
+
+@app.route('/tableMateria', methods=['GET'])
+def get_tableMateria():
+  data = materia.query.all()
+  result = materias_schema.dump(data)
   return jsonify(result)
 
 '''___ manejor de errores ___ '''
