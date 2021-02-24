@@ -1,4 +1,4 @@
-api con flask para la mamipulacion de DB
+api con flask para la manipulacion de DB
 
 
 
