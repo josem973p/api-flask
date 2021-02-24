@@ -114,6 +114,14 @@ def createCarrera():
     db.session.commit()
     return carrera_schema.jsonify(newCarrera)
 
+@app.route('/postMateria', methods=['POST'])
+def createMateria():
+    mat= request.json['materia']
+    newMateria = materia(mat)
+    db.session.add(newMateria)
+    db.session.commit()
+    return materia_schema.jsonify(newMateria)
+
 
 @app.route('/table/<tabla>', methods=['GET'])
 def get_tasks(tabla):
@@ -121,6 +129,14 @@ def get_tasks(tabla):
   result = tasks_schema.dump(data)
   return jsonify(result)
 
+'''___ manejor de errores ___ '''
+@app.errorhandler(404)
+def not_found(error):
+    return jsonify({'mensaje': 'lo siento no se encuentra lo que buscas'})
+
+@app.errorhandler(500)
+def server_error(error):
+    return jsonify({'mensaje': 'error interno :('})
 
 #main
 if __name__ == "__main__":
