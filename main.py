@@ -185,6 +185,7 @@ def updateMateria(id):
       "mensaje":"modificado correctamente"
   })
 
+
 '''___ manejor de errores ___ '''
 @app.errorhandler(404)
 def not_found(error):
